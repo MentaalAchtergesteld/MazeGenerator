@@ -1,5 +1,5 @@
 use rand::{seq::SliceRandom, Rng};
-use crate::Cell;
+use crate::{Cell, CellType};
 
 fn maze_gen_step(
     stack: &mut Vec<(usize, usize)>,
@@ -82,6 +82,8 @@ fn maze_gen_step(
 
 pub fn generate_maze(start: (usize, usize), grid: &mut Vec<Vec<Cell>>, rng: &mut impl Rng) {
     let mut stack = vec![start];
+
+    grid[start.0][start.1].cell_type = CellType::Start;
 
     while let Some(next) = maze_gen_step(&mut stack, grid, rng) {
         stack.push(next);
